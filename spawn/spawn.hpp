@@ -7,9 +7,9 @@ class SpawnDialog
 		class SpawnBackground: RscText
 		{
 			text = "";
-			x = .305217 * safezoneW + safezoneX; //.304
-			y = .269348 * safezoneH + safezoneY; //.268422
-			w = .1185 * safezoneW; //.0947841 //.0985
+			x = .305217 * safezoneW + safezoneX;
+			y = .269348 * safezoneH + safezoneY;
+			w = .1185 * safezoneW;
 			h = .4644 * safezoneH;
 			colorBackground[] = {.3,.3,.3,1};
 			fixedWidth = 0;
@@ -20,9 +20,9 @@ class SpawnDialog
 		class SpawnSelect: RscText
 		{
 			text = "Spawn Selection";
-			x = .305218 * safezoneW + safezoneX; //.304
-			y = .269348 * safezoneH + safezoneY; //.269348
-			w = .1185 * safezoneW; //.0947841
+			x = .305218 * safezoneW + safezoneX;
+			y = .269348 * safezoneH + safezoneY;
+			w = .1185 * safezoneW;
 			h = .0405354 * safezoneH;
 			colorText[] = {1,1,1,1};
 			colorBackground[] = {.384,.702,.886,.8};
@@ -33,9 +33,9 @@ class SpawnDialog
 		class SpawnList
 		{
 			idc = 8888;
-			x = .305217 * safezoneW + safezoneX; //.304
+			x = .305217 * safezoneW + safezoneX;
 			y = .314737 * safezoneH + safezoneY;
-			w = .1185 * safezoneW; //.094784
+			w = .1185 * safezoneW;
 			h = .33 * safezoneH;
 			autoScrollDelay = 5;
 			autoScrollRewind = 0;
@@ -67,10 +67,10 @@ class SpawnDialog
 		{
 			idc = 8889;
 			text = "Select Spawn";
-			x = .3172 * safezoneW + safezoneX; //.308 //.309383
-			y = .656 * safezoneH + safezoneY; //.651916
-			w = .0915 * safezoneW; //.0859322 //.1059322
-			h = .0674 * safezoneH; //.07203
+			x = .318 * safezoneW + safezoneX;
+			y = .6565 * safezoneH + safezoneY;
+			w = .092 * safezoneW;
+			h = .067 * safezoneH;
 			action = "call spawnPick;";
 			borderSize = 0;
 			colorBackground[] = {.4,.4,.4,1};
@@ -97,7 +97,7 @@ class SpawnDialog
 		class SpawnMap
 		{
 			idc = 8890;
-			x = .42315 * safezoneW + safezoneX; //.40315
+			x = .42315 * safezoneW + safezoneX;
 			y = .269348 * safezoneH + safezoneY;
 			w = .293691 * safezoneW;
 			h = .463997 * safezoneH;

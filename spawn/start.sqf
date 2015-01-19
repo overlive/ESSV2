@@ -1,10 +1,10 @@
-private ["_debug","_go","_holder","_isPZombie","_mod","_platform"];
+#define AT_SPAWN _nearNow=call _atSpawn;{if!(_x in _nearFinal)then{_nearFinal set [count _nearFinal,_x];};}count _nearNow;
+private ["_debug","_go","_holder","_isPZombie","_platform"];
 
 _debug = getMarkerPos "respawn_west";
-_mod = toLower(getText (configFile >> "CfgMods" >> "DayZ" >> "dir"));
-if (_mod == "@DayZ_Epoch") then {
+if (toLower(getText(configFile >> "CfgMods" >> "DayZ" >> "dir")) == "@DayZ_Epoch") then {
 	if (surfaceIsWater _debug) then {
-		_debug = [_debug select 0,_debug select 1,2];
+		_debug set [2,2];
 		_platform = "MetalFloor_DZ" createVehicleLocal _debug;
 		_platform setPosASL _debug;
 		_platform allowDamage false;
@@ -22,11 +22,15 @@ if (_mod == "@DayZ_Epoch") then {
 
 if (_go) then {
 	enableEnvironment false;
+	if ((player distance _debug) > 100) then {
+		_debug = getPosATL player;
+		if (surfaceIsWater _debug) then {_debug = getPosASL player;};
+	};
 	_holder = "Survivor1_DZ" createVehicleLocal _debug;
 	if (surfaceIsWater _debug) then {_holder setPosASL _debug;};
 	player attachTo [_holder,[0,0,0]];
 	_nearFinal = [];
-	_inDebug = {
+	_atSpawn = {
 		private "_ret";_ret=[];
 		dayz_temperatur = 36;
 		DZE_InRadiationZone = false;
@@ -39,23 +43,12 @@ if (_go) then {
 
 	#include "class.sqf"
 	#include "spawn.sqf"
-
+	#include "halo.sqf"
+	#include "startSpawn.sqf"
+	
 	{_x hideObject false;_x allowDamage true;player reveal _x;} count _nearFinal;
 	deleteVehicle _holder;
 	fnc_usec_damageHandler = compile preprocessFileLineNumbers "\z\addons\dayz_code\compile\fn_damageHandler.sqf";
 	enableEnvironment true;
-	cutText ["","BLACK IN"];
-	
-	_myalt = (getPos player) select 2;
-	while {_myalt > 400} do {
-		player allowDamage false;
-		if !((vehicle player) isKindOf _haloType) then {
-			_myalt = (getPos player) select 2;
-			_myalt = round(_myalt);
-			titleText [("                                      ALTITUDE: " + str _myalt + "\n\n                                      Scroll 'mouse' select Open Chute"),"PLAIN DOWN",.1];
-		};
-		uiSleep .2;
-	};
-	player allowDamage true;
-	DZE_HaloJump = _haloJump;
+	if (isNil "_halo") then {cutText ["","BLACK IN"];};
 };

@@ -1,19 +1,19 @@
 _bodyCheck = 4000;
-_haloHeight = 1500;
-_haloJump = true; //DZE_HaloJump setting
-_haloType = "C130J_US_EP1_DZ";
+_mapRadius = 12000; //distance from center to farthest edge. Used for plot only
+_spawnNearGroup = false;
+_spawnNearPlot = false;
 _spawnRadius = 800;
-_vipBase = [
-	"76561198133816969", // ebay
+_customBase = [ // Note these override body check
+	"76561198014219874", // ebay
 	"0",
 	"0"
 ];
-_vipBases = [
+_customBases = [
 	["ebay's base",[2324,15365,0]],
 	[],
 	[]
 ];
-_spawnLevel1 = ["76561198133816969","0","0"];
+_spawnLevel1 = ["0","0","0"];
 _spawnLevel2 = ["0","0","0"]; // To include other VIP levels in this list use +
 _spawnLevel3 = ["0","0","0"];
 _spawnPoints = [
@@ -90,7 +90,7 @@ _spawnPoints = [
 	["Sachseln",[15554,10651,0],0,0],
 	["Schangen",[9412,5882,0],0,0],
 	["Sissach",[11111,8326,0],0,0],
-	["Waldegg",[8538,852,0],0,0] //dayz_paraSpawn = false; debug coords = [18020,0,19680] or [19100,90,1380]
+	["Waldegg",[8538,852,0],0,0] //dayz_paraSpawn = false; debug coords = [18020,0,19680] (land) or [19100,90,1380]
 	
 
 // Sauerland

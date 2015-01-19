@@ -5,7 +5,7 @@ _startBag = "DZ_Patrol_Pack_EP1";
 _startMags = ["ItemBandage",3,"ItemPainkiller","ItemWaterbottle","FoodPistachio","17Rnd_9x19_glock17",3];
 _startWeps = ["ItemMap","ItemFlashlight","ItemToolbox","glock17_EP1"];
 _customLoadout = [
-	"76561198133816969", // ebay //76561198014219874
+	"76561198014219874", // ebay //76561198014219874 76561198133816969
 	"0",
 	"0"
 ];
@@ -14,7 +14,7 @@ _customLoadouts = [
 	[],
 	[]
 ];
-_classLevel1 = ["76561198133816969","0","0"];
+_classLevel1 = ["0","0","0"];
 _classLevel2 = ["0","0","0"]; // To include other VIP levels in this list use +
 _classLevel3 = ["0","0","0"];
 _publicClasses = [
@@ -23,9 +23,9 @@ _publicClasses = [
 		[["Survivor2_DZ","Haris_Press_EP1_DZ","Rocker1_DZ"],["SurvivorW2_DZ","SurvivorWdesert_DZ","SurvivorWurban_DZ"]],
 		["ItemAntibiotic",2,"ItemMorphine","ItemEpinephrine"],2, // do not set number higher than # of unique mags
 		["ItemCompass","ItemHatchet","ItemCrowbar"],2, // do not set number higher than # of unique tools
-		["M4A1","AK_74","BAF_L85A2_RIS_Holo"],2,
-		["MakarovSD","Colt1911","revolver_EP1"],3,
-		["DZ_Assault_Pack_EP1","DZ_ALICE_Pack_EP1"], // use [""] for none
+		["M4A1","AK_74","BAF_L85A2_RIS_Holo","Sa58P_EP1"],2,
+		["MakarovSD","Colt1911","revolver_EP1","M9","M9SD"],3,
+		["DZ_Assault_Pack_EP1","DZ_ALICE_Pack_EP1","DZ_Patrol_Pack_EP1"], // use [""] for none
 		[],4, // bag items
 		[],2, // bag tools
 		[],2, // bag wep

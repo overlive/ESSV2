@@ -7,11 +7,11 @@ class ClassDialog
 		class ClassBackground: RscText
 		{
 			text = "";
-			x = .3 * safezoneW + safezoneX; //.347367
-			y = .317516 * safezoneH + safezoneY;
-			w = .138504 * safezoneW; //.128504
-			h = .32 * safezoneH;
-			colorBackground[] = {.3,.3,.3,1}; //.3 alpha
+			x = .31 * safezoneW + safezoneX;
+			y = .3 * safezoneH + safezoneY;
+			w = .138504 * safezoneW;
+			h = .325 * safezoneH;
+			colorBackground[] = {.3,.3,.3,1};
 			fixedWidth = 0;
 		};
 	};
@@ -20,10 +20,10 @@ class ClassDialog
 		class ClassSelect: RscText
 		{
 			text = "Class Selection";
-			x = .3 * safezoneW + safezoneX;
-			y = .286948 * safezoneH + safezoneY;
+			x = .31 * safezoneW + safezoneX;
+			y = .26 * safezoneH + safezoneY;
 			w = .138504 * safezoneW;
-			h = .0301 * safezoneH;
+			h = .04025 * safezoneH;
 			colorText[] = {1,1,1,1};
 			colorBackground[] = {.384,.702,.886,.8};
 			fixedWidth = 0;
@@ -33,8 +33,8 @@ class ClassDialog
 		class ClassList
 		{
 			idc = 8888;
-			x = .3 * safezoneW + safezoneX;
-			y = .32 * safezoneH + safezoneY; //.317516
+			x = .31 * safezoneW + safezoneX;
+			y = .303 * safezoneH + safezoneY;
 			w = .138504 * safezoneW;
 			h = .25 * safezoneH;
 			autoScrollDelay = 5;
@@ -58,7 +58,7 @@ class ClassDialog
 				shadow = 0;
 				thumb = "";
 			};
-			sizeEx = .03; //.04
+			sizeEx = .03;
 			soundSelect[] = {"",.1,1};
 			style = 16;
 			type = 5;
@@ -67,18 +67,18 @@ class ClassDialog
 		{
 			idc = 8889;
 			text = "Select Class";
-			x = .3135 * safezoneW + safezoneX; //.351534 //.304167
-			y = .582 * safezoneH + safezoneY; //.585
-			w = .11 * safezoneW; //.121195 //.131195
-			h = .044 * safezoneH; //.048
+			x = .324 * safezoneW + safezoneX;
+			y = .567 * safezoneH + safezoneY;
+			w = .109 * safezoneW;
+			h = .044 * safezoneH;
 			action = "call classPick;";
 			borderSize = 0;
-			colorBackground[] = {.4,.4,.4,1}; //.5 alpha
-			colorBackgroundActive[] = {.5,.5,.5,1}; //.5 alpha
-			colorBackgroundDisabled[] = {.2,.2,.2,1}; //.3 color .1 alpha
-			colorBorder[] = {.88,.88,.88,1}; //.3 alpha			
-			colorDisabled[] = {.2,.2,.2,1};//.4 color 
-			colorFocused[] = {.4,.4,.4,1}; //.3 color
+			colorBackground[] = {.4,.4,.4,1};
+			colorBackgroundActive[] = {.5,.5,.5,1};
+			colorBackgroundDisabled[] = {.2,.2,.2,1};
+			colorBorder[] = {.88,.88,.88,1};		
+			colorDisabled[] = {.2,.2,.2,1};
+			colorFocused[] = {.4,.4,.4,1};
 			colorShadow[] = {0,0,0,0};
 			colorText[] = {1,1,1,1};
 			font = "Zeppelin32";
@@ -86,7 +86,7 @@ class ClassDialog
 			offsetPressedY = .002;
 			offsetX = .003;
 			offsetY = .003;
-			sizeEx = .03; //.04
+			sizeEx = .03;
 			soundClick[] = {"\ca\ui\data\sound\onclick",.07,1};
 			soundEnter[] = {"\ca\ui\data\sound\onover",.09,1};
 			soundEscape[] = {"\ca\ui\data\sound\onescape",.09,1};

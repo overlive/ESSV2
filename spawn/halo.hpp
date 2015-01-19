@@ -10,7 +10,7 @@ class HaloDialog
 			x = .370287 * safezoneW + safezoneX;
 			y = .338822 * safezoneH + safezoneY;
 			w = .260299 * safezoneW;
-			h = .3 * safezoneH; //.323988
+			h = .3 * safezoneH;
 			colorBackground[] = {.3,.3,.3,1};
 			fixedWidth = 0;
 		};
@@ -21,9 +21,9 @@ class HaloDialog
 		{
 			text = "Spawn Type Selection";
 			x = .370288 * safezoneW + safezoneX;
-			y = .292506 * safezoneH + safezoneY;
+			y = .289 * safezoneH + safezoneY;
 			w = .260299 * safezoneW;
-			h = .05 * safezoneH; //.0405354
+			h = .05 * safezoneH;
 			colorText[] = {1,1,1,1};
 			colorBackground[] = {.384,.702,.886,.8};
 			fixedWidth = 0;
@@ -53,7 +53,7 @@ class HaloDialog
 			idc = -1;
 			text = "Air";
 			x = .402585 * safezoneW + safezoneX;
-			y = .525936 * safezoneH + safezoneY;
+			y = .523 * safezoneH + safezoneY;
 			w = .0743267 * safezoneW;
 			h = .0877774 * safezoneH;
 			action = "uiNamespace setVariable ['haloChoice',1];";
@@ -84,8 +84,8 @@ class HaloDialog
 			idc = -1;
 			text = "Ground";
 			x = .524484 * safezoneW + safezoneX;
-			y = .526863 * safezoneH + safezoneY;
-			w = .0732848 * safezoneW;
+			y = .523 * safezoneH + safezoneY;
+			w = .0743267 * safezoneW;
 			h = .0877774 * safezoneH;
 			action = "uiNamespace setVariable ['haloChoice',0];";
 			borderSize = 0;
