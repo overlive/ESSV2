@@ -1,8 +1,5 @@
 _halo = uiNamespace getVariable "haloChoice";
 deleteVehicle _holder;
-player hideObject false;
-enableEnvironment true;
-cutText ["","BLACK IN"];
 _finalSpawnPos = _debug;
 if (!isNil "_grid") then {_finalSpawnPos = _grid;};
 
@@ -16,6 +13,10 @@ if (_halo > 0) then {
 } else {
 	player setPosATL _finalSpawnPos;
 };
+
+player hideObject false;
+enableEnvironment true;
+cutText ["","BLACK IN"];
 
 if (!isNil "_haloDrop") then {
 	_myalt = (getPos player) select 2;
