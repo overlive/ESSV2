@@ -1,7 +1,6 @@
 #define CHECK1 if(typeName _x == "STRING")then{
 #define CHECK2 if((isNil "_qty")||{typeName _qty == "STRING"})then{_qty=1;};
 #define CLEAR_MEN {if!(_x isKindOf "Survivor1_DZ")then{deleteVehicle _x;};}count(player nearEntities["Man",100]);
-#define EXIT1 ,"PLAIN DOWN"];titleFadeOut 4;_go=0;};
 #define GENDERC if(player isKindOf "SurvivorW2_DZ")then{_model=
 #define GET_CLASS disableSerialization;_text=lbText[8888,(lbCurSel 8888)];{if(_text==(_x select 0))then{_class=_x;};}forEach _publicClasses+_customLoadouts;
 
@@ -32,24 +31,24 @@ classPick = {
 	#include "classConfig.sqf"
 	_go = 1;
 	GET_CLASS
-	if (isNil "_class") exitWith {titleText ["Select a class!" EXIT1
+	if (isNil "_class") exitWith {systemChat "Select a class!";_go=0;};
 	if (count _class > 8) then {
 		_level = _class select 8;
 		_hlevel = _class select 9;
 		if (count _class > 11) then {_level = _class select 19;_hlevel = _class select 20;};
 		_humanity = player getVariable ["humanity",0];
 		_puid = getPlayerUID player;
-		if ((_hlevel < 0) && {_humanity >= _hlevel}) exitWith {titleText [format["Your humanity must be less than %1 for this class.",_hlevel] EXIT1
-		if ((_hlevel > 0) && {_humanity <= _hlevel}) exitWith {titleText [format["Your humanity must be greater than %1 for this class.",_hlevel] EXIT1
-		if ((_level == 1) && {!(_puid in _classLevel1)}) exitWith {titleText ["This class is level 1 VIP only." EXIT1
-		if ((_level == 2) && {!(_puid in _classLevel2)}) exitWith {titleText ["This class is level 2 VIP only." EXIT1
-		if ((_level == 3) && {!(_puid in _classLevel3)}) exitWith {titleText ["This class is level 3 VIP only." EXIT1
+		if ((_hlevel < 0) && {_humanity >= _hlevel}) exitWith {systemChat format["Your humanity must be less than %1 for this class.",_hlevel];_go=0;};
+		if ((_hlevel > 0) && {_humanity <= _hlevel}) exitWith {systemChat format["Your humanity must be greater than %1 for this class.",_hlevel];_go=0;};
+		if ((_level == 1) && {!(_puid in _classLevel1)}) exitWith {systemChat "This class is level 1 VIP only.";_go=0;};
+		if ((_level == 2) && {!(_puid in _classLevel2)}) exitWith {systemChat "This class is level 2 VIP only.";_go=0;};
+		if ((_level == 3) && {!(_puid in _classLevel3)}) exitWith {systemChat "This class is level 3 VIP only.";_go=0;};
 	};
 	if (_go > 0) then {uiNamespace setVariable ["classChoice",_class];};
 };
 
 classPreview = {
-	private ["_class","_model","_pPos","_text","_unit"];
+	private ["_cam","_class","_model","_pPos","_text","_unit"];
 	#include "classConfig.sqf"
 	CLEAR_MEN
 	_class = _publicClasses select 0;
@@ -71,9 +70,20 @@ classPreview = {
 	_unit attachTo [player,[.34,3.8,1.1]];
 	_unit setDir ((getDir player) + 180);
 	_unit enableSimulation false;
+	_cam = "camera" camCreate _pPos;
+	_cam cameraEffect ["external","back"];
+	_cam camSetFOV .7;
+	_cam camCommit 0;
+	waitUntil {camCommitted _cam};
+	_cam camSetTarget _unit;
+	_cam camSetRelPos [0,.8,1.9];
+	_cam camCommit 0;
+	waitUntil {camCommitted _cam};
+	_cam attachTo [player,[0,.8,1.9]];
+	_cam
 };
 
-private ["_class","_mags","_model","_muzzle","_myModel","_pistol","_pistols","_pistolAmmo","_qty","_tool","_tools","_wep","_weps"];
+private ["_cam","_class","_mags","_model","_muzzle","_myModel","_pistol","_pistols","_pistolAmmo","_qty","_tool","_tools","_wep","_weps"];
 #include "classConfig.sqf"
 uiNamespace setVariable ["classChoice",[]];
 
@@ -90,11 +100,13 @@ if !(_isPZombie) then {
 	
 	while {count (uiNamespace getVariable "classChoice") < 1} do {
 		AT_SPAWN
-		if (!dialog) then {_i="createDialog";createDialog "ClassDialog";call classFill;call classPreview;player switchMove "";};
+		if (!dialog) then {_i="createDialog";createDialog "ClassDialog";call classFill;_cam = call classPreview;};
 		uiSleep 1;
 	};
 	closeDialog 0;
 	deleteVehicle _light;
+	_cam cameraEffect ["terminate","back"];
+	camDestroy _cam;
 	CLEAR_MEN
 
 	_class = uiNamespace getVariable "classChoice";

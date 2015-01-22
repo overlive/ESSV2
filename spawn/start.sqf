@@ -37,6 +37,7 @@ if (_go) then {
 		fnc_usec_damageHandler = {};
 		player hideObject true;
 		player switchCamera "INTERNAL";
+		player setVariable ["combattimeout",0,false];
 		{if (!local _x) then {_x hideObject true;};_x allowDamage false;_ret set [count _ret,_x];} count (player nearEntities ["Man",100]);
 		_ret
 	};
