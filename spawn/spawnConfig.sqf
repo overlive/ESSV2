@@ -1,9 +1,37 @@
-_bodyCheck = 4000;
-_mapRadius = 12000; //distance from center to farthest edge. Used for plot only
-_spawnNearGroup = false;
-_spawnNearPlot = false;
-_spawnRadius = 800;
-_customBase = [ // Note these override body check
+/*  
+
+Spawn Configuration:
+
+1. These spawns are just examples to show what this mod can do. You can add or delete
+any spawn in the _spawnPoints list.
+
+2. Spawn format: 
+	[Name, Pos, VIP Level, Humanity Level]
+	Name - Each spawn must have a unique name. Can be anything. Do not use double quotes " inside.
+	Pos - Coordinates in AboveTerrainLevel Format [x,y,z]
+	VIP Level -
+		0 - Anyone can pick this spawn
+		1 - Only players with UIDs in _spawnLevel1 can pick this spawn
+		2 - Only players with UIDs in _spawnLevel2 can pick this spawn
+		3 - Only players with UIDs in _spawnLevel3 can pick this spawn​
+	Humanity Level -
+		0 - Anyone can pick this spawn
+		Negative # - Only players with humanity less than this number can pick this spawn
+		Positive # - Only players with humanity greater than this number can pick this spawn​
+
+3. _customBase - List of UIDs that own custom bases.
+   _customBases - List of custom bases. These must match the order of the first list. The first UID in _customBase corresponds with the first base in _customBases and so on. 
+   These will only show in the spawn dialog for the player who owns them. If multiple UIDs share the same base then add the same base multiple times to maintain order, 
+   or consider making it a VIP spawn in _spawnPoints instead. Pos is exactly where you will spawn, does not run through findSafePos. These override body check.
+
+*/
+
+_bodyCheck = 4000; // If a player has a body within this distance of a spawn that spawn will be blocked. Set to -1 to disable.
+_mapRadius = 12000; // Distance from center to farthest edge of map. Only used when spawnNearPlot is enabled.
+_spawnNearGroup = false; // Allow players to spawn near their group. Blocked if the player has a body within bodyCheck distance of the leader. Requires DZGM to work.
+_spawnNearPlot = false; // Allow players to spawn near their plot. Blocked if the player has a body within bodyCheck distance of their plot. Requires Plot4Life to work. 
+_spawnRadius = 800; // Distance around spawn to find a safe pos. Lower is closer to exact coordinates. Do not set too low or BIS_fnc_findSafePos may fail.
+_customBase = [
 	"76561198014219874", // ebay
 	"0",
 	"0"
@@ -13,11 +41,16 @@ _customBases = [
 	[],
 	[]
 ];
+
 _spawnLevel1 = ["0","0","0"];
-_spawnLevel2 = ["0","0","0"]; // To include other VIP levels in this list use +
+_spawnLevel2 = ["0","0","0"];
 _spawnLevel3 = ["0","0","0"];
+// To give higher level VIPs access to lower level VIP spawns too use +. For example:
+// _spawnLevel2 = ["0","0","0"] + _spawnLevel1;
+// _spawnLevel3 = ["0","0","0"] + _spawnLevel2;
+
 _spawnPoints = [
-	["Random",[[4932,1989,0],[12048,8352,0],[6901,2509,0],[10294,2191,0],[2236,1923,0],[13510,5249,0]],0,0,1],
+	["Random",[[4932,1989,0],[12048,8352,0],[6901,2509,0],[10294,2191,0],[2236,1923,0],[13510,5249,0]],0,0,1], // Forces ground spawn to prevent spam via easy suicide to bypass bodyCheck.
 	["Balota",[4932,1989,0],0,0],
 	["Berezino",[12048,8352,0],0,0],
 	["Cherno",[6901,2509,0],0,0],
@@ -49,7 +82,7 @@ _spawnPoints = [
 ];
 
 /*
-// Tavi
+ Tavi
 	["Random",[[9093,2614,0],[17588,4952,0],[15954,15847,0],[16674,13930,0],[11361,6685,0],[17744,10299,0],[18292,7537,0],[13561,19300,0],[15246,17425,0],[12268,9763,0]],0,0,1],
 	["Topolka",[9093,2614,0],0,0],
 	["Stari Sad",[17588,4952,0],0,0],
@@ -68,7 +101,7 @@ _spawnPoints = [
 	["Chernovar",[5904,10519,0],0,0]
 	
 
-// Napf
+ Napf
 	["Random",[[5411,16676,0],[1511,11479,0],[12231,16319,0],[6946,17385,0],[12862,14850,0],[4672,14940,0],[2720,12226,0],[4104,13026,0],[1461,10584,0],[10283,18449,0],[10709,17085,0]],0,0,1],
 	["Seltishafen",[5411,16676,0],0,0],
 	["Hubel",[1511,11479,0],0,0],
@@ -90,10 +123,10 @@ _spawnPoints = [
 	["Sachseln",[15554,10651,0],0,0],
 	["Schangen",[9412,5882,0],0,0],
 	["Sissach",[11111,8326,0],0,0],
-	["Waldegg",[8538,852,0],0,0] //dayz_paraSpawn = false; debug coords = [18020,0,19680] (land) or [19100,90,1380]
+	["Waldegg",[8538,852,0],0,0]
 	
 
-// Sauerland
+ Sauerland
 	["Random",[[15448,8466,0],[19488,7462,0],[19478,12440,0],[20210,14501,0],[16453,6895,0],[19666,10377,0],[11000,10157,0],[10669,13320,0],[11349,12225,0],[12104,8936,0],[12879,14983,0]],0,0,1],
 	["Buersfeld",[15448,8466,0],0,0],
 	["Hoeinghausen",[19488,7462,0],0,0],
@@ -117,7 +150,7 @@ _spawnPoints = [
 	["Ihrhofen",[9640,19193,0],0,0],
 	["Old Airfield",[17253,2167,0],0,0]
 
-// Panthera
+ Panthera
 	["Random",[[1725,5463,0],[1640,4350,0],[5897,1669,0],[8745,2248,0],[2454,6911,0],[3250,2556,0],[4115,3820,0],[1876,2840,0],[7988,6808,0],[8818,5909,0],[6117,3812,0]],0,0,1],
 	["Unknown1",[1725,5463,0],0,0],
 	["Unknown2",[1640,4350,0],0,0],
@@ -143,7 +176,7 @@ _spawnPoints = [
 	["Unknown21",[3113,4573,0],0,0],
 	["Unknown22",[4721,2201,0],0,0]
 
-// Lingor
+ Lingor
 	["Random",[[2085,5501,0],[1355,315,0],[4550,913,0],[8880,1703,0],[580,5547,0],[3250,2556,0],[6143,2753,0],[1269,2858,0],[8295,8667,0],[9072,7323,0],[6899,3971,0]],0,0,1],
 	["Vidora",[2085,5501,0],0,0],
 	["Alma",[1355,315,0],0,0],
@@ -158,7 +191,7 @@ _spawnPoints = [
 	["Sanvigado",[6899,3971,0],0,0]
 	// Above are defaults
 
-// Namalsk
+ Namalsk
 	["Random",[[4620,10916,0],[7600,6020,0],[6498,11851,0],[7668,11707,0],[4340,4960,0],[7885,7206,0],[3013,7506,0],[4673,10004,0],[7859,9096,0],[8756,10119,0],[5823,5641,0]],0,0,1],
 	["Lubjansk",[4620,10916,0],0,0],
 	["Old Sawmill",[7600,6020,0],0,0],

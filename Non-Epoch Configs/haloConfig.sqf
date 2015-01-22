@@ -1,0 +1,3 @@
+_haloHeight = 1500; // Height above ground to start halo. Higher will give more air time allowing players to drift further.
+_haloJump = true; // Setting has no affect on 1.8.3 or Overwatch, leave in for compatibility.
+_haloType = "AN2_DZ"; // Type of plane. Tested with C130J_US_EP1_DZ, AN2_DZ, MV22_DZ. Delete this line to disable the plane and use regular halo.
