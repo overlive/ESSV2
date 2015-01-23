@@ -48,7 +48,7 @@ classPick = {
 };
 
 classPreview = {
-	private ["_cam","_class","_model","_pPos","_text","_unit"];
+	private ["_class","_model","_pPos","_text","_unit"];
 	#include "classConfig.sqf"
 	CLEAR_MEN
 	_class = _publicClasses select 0;
@@ -70,17 +70,6 @@ classPreview = {
 	_unit attachTo [player,[.34,3.8,1.1]];
 	_unit setDir ((getDir player) + 180);
 	_unit enableSimulation false;
-	_cam = "camera" camCreate _pPos;
-	_cam cameraEffect ["external","back"];
-	_cam camSetFOV .7;
-	_cam camCommit 0;
-	waitUntil {camCommitted _cam};
-	_cam camSetTarget _unit;
-	_cam camSetRelPos [0,.8,1.9];
-	_cam camCommit 0;
-	waitUntil {camCommitted _cam};
-	_cam attachTo [player,[0,.8,1.9]];
-	_cam
 };
 
 private ["_cam","_class","_mags","_model","_muzzle","_myModel","_pistol","_pistols","_pistolAmmo","_qty","_tool","_tools","_wep","_weps"];
@@ -96,11 +85,20 @@ if !(_isPZombie) then {
 	_light lightAttachObject [player,[0,1,.1]];
 	_light setLightBrightness 1;
 	_light setLightAmbient [1,0,0];
-	_light setLightColor [1,0,0];
+	_light setLightColor [1,0,0];	
+	_cam = "camera" camCreate _debug;
+	_cam cameraEffect ["external","back"];
+	_cam camSetFOV .7;
+	_cam camCommit 0;
+	waitUntil {camCommitted _cam};
+	_cam camSetRelPos [0,.8,1.9];
+	_cam camCommit 0;
+	waitUntil {camCommitted _cam};
+	_cam attachTo [player,[0,.8,1.9]];
 	
 	while {count (uiNamespace getVariable "classChoice") < 1} do {
 		AT_SPAWN
-		if (!dialog) then {_i="createDialog";createDialog "ClassDialog";call classFill;_cam = call classPreview;};
+		if (!dialog) then {_i="createDialog";createDialog "ClassDialog";call classFill;call classPreview;player switchMove "";};
 		uiSleep 1;
 	};
 	closeDialog 0;

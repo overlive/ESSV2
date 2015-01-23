@@ -22,6 +22,7 @@ if (toLower(getText(configFile >> "CfgMods" >> "DayZ" >> "dir")) == "@DayZ_Epoch
 
 if (_go) then {
 	enableEnvironment false;
+	0 fadeSound 0;
 	if ((player distance _debug) > 100) then {
 		_debug = getPosATL player;
 		if (surfaceIsWater _debug) then {_debug = getPosASL player;};
@@ -51,5 +52,6 @@ if (_go) then {
 	deleteVehicle _holder;
 	fnc_usec_damageHandler = compile preprocessFileLineNumbers "\z\addons\dayz_code\compile\fn_damageHandler.sqf";
 	enableEnvironment true;
+	0 fadeSound 1;
 	if (isNil "_halo") then {cutText ["","BLACK IN"];};
 };
