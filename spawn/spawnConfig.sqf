@@ -20,8 +20,11 @@ any spawn in the _spawnPoints list.
 		Positive # - Only players with humanity greater than this number can pick this spawn​
 
 3. _customBase - List of UIDs that own custom bases.
-   _customBases - List of custom bases. These must match the order of the first list. The first UID in _customBase corresponds with the first base in _customBases and so on. 
-   These will only show in the spawn dialog for the player who owns them. If multiple UIDs share the same base then add the same base multiple times to maintain order, 
+   _customBases - List of custom bases in this format: ["Name",[Pos]]
+   Name - Each base must have unique name. Can be anything. Do not use double quotes " inside.
+   Pos - In AboveTerrainLevel [x,y,z] format
+   These must match the order of the first list. The first UID in _customBase corresponds with the first base in _customBases and so on. 
+   These will only show in the spawn list for the player who owns them. If multiple UIDs share the same base then add the same base multiple times to maintain order, 
    or consider making it a VIP spawn in _spawnPoints instead. Pos is exactly where you will spawn, does not run through findSafePos. These override body check.
 
 */
