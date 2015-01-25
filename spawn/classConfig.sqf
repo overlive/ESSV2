@@ -3,7 +3,8 @@
 Class Configuration:
 
 1. These classes are just examples to show what this mod can do. You can add or delete any class
-in the _publicClasses list. You can even leave all gear blank and use this as a skin selector only.
+in the _publicClasses list. Don't forget to leave off the last comma for the last element in the array.
+You can even leave all gear blank and use this as a skin selector only.
 
 2. _startBag, _startMags and _startWeps make the default loadout. They will be added first, then the class loadout (if any) on top.
 Use the base gear that you want all (or most) classes to have. Start binocs, pistols, pistol mags and bags are replaced if they 

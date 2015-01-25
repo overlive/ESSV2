@@ -3,7 +3,8 @@
 Spawn Configuration:
 
 1. These spawns are just examples to show what this mod can do. You can add or delete
-any spawn in the _spawnPoints list.
+any spawn in the _spawnPoints list. Don't forget to leave off the last comma for the last
+element in the array.
 
 2. Spawn format: 
 	[Name, Pos, VIP Level, Humanity Level]
