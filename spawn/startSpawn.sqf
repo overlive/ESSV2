@@ -20,16 +20,14 @@ enableEnvironment true;
 cutText ["","BLACK IN"];
 
 if (!isNil "_haloDrop") then {
-	_myalt = (getPos player) select 2;
-	while {_myalt > 400} do {
+	while {(((getPos player) select 2) > _autoOpenHeight) && {(isNil "bis_fnc_halo_para_dirAbs") || (vehicle player != player)}} do {
 		player allowDamage false;
 		if !((vehicle player) isKindOf _haloType) then {
-			_myalt = (getPos player) select 2;
-			_myalt = round(_myalt);
-			titleText [("                                      ALTITUDE: " + str _myalt + "\n\n                                      Scroll 'mouse' select Open Chute"),"PLAIN DOWN",.1];
+			titleText [("                                      ALTITUDE: " + str (round((getPos player) select 2)) + "\n\n                                      Scroll 'Mouse' select Open Chute"),"PLAIN DOWN",.1];
 		};
-		uiSleep .2;
+		uiSleep .1;
 	};
-	player allowDamage true;
+	if ((((getPos player) select 2) > (_autoOpenHeight - 100)) && {isNil "bis_fnc_halo_para_dirAbs"}) then {[player] spawn BIS_fnc_Halo;};
 	DZE_HaloJump = _haloJump;
+	player allowDamage true;
 };

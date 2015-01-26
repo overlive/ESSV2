@@ -37,7 +37,7 @@ _haloDrop = {
 };
 
 uiNamespace setVariable ["haloChoice",-1];
-if (((isNil "_spawn") && {!_isPZombie}) || ((!isNil "_spawn") && {count _spawn < 5} && {!_isPZombie})) then {
+if (!_isPZombie) then {
 	while {uiNamespace getVariable "haloChoice" == -1} do {
 		AT_SPAWN
 		if (!dialog) then {cutText ["","BLACK OUT",0];_i="createDialog";createDialog "HaloDialog";};

@@ -4,15 +4,16 @@
 
 moveMap = {
 	#include "spawnConfig.sqf"
-	private ["_ctrl","_leader","_plot","_grid","_spawn","_text"];
-	_spawn = _spawnPoints select 0;
+	private ["_ctrl","_leader","_plot","_grid","_spawn","_text","_zoom"];
 	GET_TEXT
+	_zoom = .35;
+	if (isNil "_spawn") then {_spawn = [[],getMarkerPos "center"];_zoom = 4;};
 	_grid = _spawn select 1;
-	if (count _spawn > 4) then {_grid = _grid select 0;};
+	if (count _spawn > 4) then {_grid = getMarkerPos "center";_zoom = 4;};
 	if (_text == "Near MyGroup") then {GROUP_POS};
 	if (_text == "Near MyPlot") then {PLOT_POS};
 	_ctrl = (findDisplay 88890) displayCtrl 8890;
-	_ctrl ctrlMapAnimAdd [1,.35,_grid];
+	_ctrl ctrlMapAnimAdd [1,_zoom,_grid];
 	ctrlMapAnimCommit _ctrl;
 };
 
