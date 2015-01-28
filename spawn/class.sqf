@@ -5,24 +5,36 @@
 #define GET_CLASS disableSerialization;_text=lbText[8888,(lbCurSel 8888)];{if(_text==(_x select 0))then{_class=_x;};}forEach _publicClasses+_customLoadouts;
 
 classFill = {
-	private ["_class","_index","_level","_puid"];
+	private ["_class","_humanity","_index","_level","_lock","_puid"];
 	#include "classConfig.sqf"
 	disableSerialization;
 	lbClear 8888;
+	_humanity = player getVariable ["humanity",0];
+	_puid = getPlayerUID player;
 	{
-		_index = lbAdd [8888,_x select 0];
+		_lock = 0;
 		_level = _x select 8;
 		_hlevel = _x select 9;
-		if (count _x > 11) then {_level = _x select 19;_hlevel = _x select 20;lbSetColor [8888,_index,[.97,.87,.35,1]];};
+		if (count _x > 11) then {_level = _x select 19;_hlevel = _x select 20;};
+		if (((_hlevel < 0) && {_humanity >= _hlevel}) || 
+				{(_level == 1) && {!(_puid in _classLevel1)}} || 
+				{(_level == 2) && {!(_puid in _classLevel2)}} ||
+				{(_level == 3) && {!(_puid in _classLevel3)}} ||
+				{(_hlevel > 0) && {_humanity <= _hlevel}}
+				) then {_lock=1;};
+		_index = lbAdd [8888,_x select 0];
+		lbSetPicture [8888,_index,"\ca\ui\data\objective_complete_ca.paa"];
+		if (_lock > 0) then {lbSetPicture [8888,_index,"\ca\ui\data\ui_server_locked_ca.paa"];};
+		if (count _x > 11) then {lbSetColor [8888,_index,[.97,.87,.35,1]];};
 		if (_hlevel > 0) then {lbSetColor [8888,_index,[.38,.7,.9,1]];};
 		if (_hlevel < 0) then {lbSetColor [8888,_index,[1,0,0,.8]];};
 		if (_level > 0) then {lbSetColor [8888,_index,[0,1,0,.8]];};
 	} forEach _publicClasses;
-	_puid = getPlayerUID player;
 	if (_puid in _customLoadout) then {
 		{if (_puid == _x) then {_index = _forEachIndex;};} forEach _customLoadout;
 		_class = _customLoadouts select _index;
-		lbAdd [8888,_class select 0];
+		_index = lbAdd [8888,_class select 0];
+		lbSetPicture [8888,_index,"\ca\ui\data\objective_complete_ca.paa"];
 	};
 };
 
@@ -40,9 +52,9 @@ classPick = {
 		_puid = getPlayerUID player;
 		if ((_hlevel < 0) && {_humanity >= _hlevel}) exitWith {systemChat format["Your humanity must be less than %1 for this class.",_hlevel];_go=0;};
 		if ((_hlevel > 0) && {_humanity <= _hlevel}) exitWith {systemChat format["Your humanity must be greater than %1 for this class.",_hlevel];_go=0;};
-		if ((_level == 1) && {!(_puid in _classLevel1)}) exitWith {systemChat "This class is level 1 VIP only.";_go=0;};
-		if ((_level == 2) && {!(_puid in _classLevel2)}) exitWith {systemChat "This class is level 2 VIP only.";_go=0;};
-		if ((_level == 3) && {!(_puid in _classLevel3)}) exitWith {systemChat "This class is level 3 VIP only.";_go=0;};
+		if ((_level == 1) && {!(_puid in _classLevel1)}) exitWith {systemChat "This class is for level 1 VIPs only.";_go=0;};
+		if ((_level == 2) && {!(_puid in _classLevel2)}) exitWith {systemChat "This class is for level 2 VIPs only.";_go=0;};
+		if ((_level == 3) && {!(_puid in _classLevel3)}) exitWith {systemChat "This class is for level 3 VIPs only.";_go=0;};
 	};
 	if (_go > 0) then {uiNamespace setVariable ["classChoice",_class];};
 };

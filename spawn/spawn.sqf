@@ -1,6 +1,7 @@
 #define GET_TEXT disableSerialization;_text=lbText[8888,(lbCurSel 8888)];{if(_text==(_x select 0))then{_spawn=_x;};}forEach _spawnPoints+_customBases;
 #define GROUP_POS _leader=leader((uiNamespace getVariable "myGroupPos")select 0);_grid=getPosATL _leader;if(surfaceIsWater _grid)then{_grid=getPosASL _leader;};
 #define PLOT_POS _plot=(uiNamespace getVariable "myPlotPos")select 0;_grid=getPosATL _plot;if(surfaceIsWater _grid)then{_grid=getPosASL _plot;};
+#define UNLCK_PIC _lb lbSetPicture[_index,"\ca\ui\data\objective_complete_ca.paa"];
 
 moveMap = {
 	#include "spawnConfig.sqf"
@@ -19,12 +20,13 @@ moveMap = {
 
 spawnFill = {
 	#include "spawnConfig.sqf"
-	private ["_block","_bodies","_body","_bodyGroup","_index","_lb","_text","_puid"];
+	private ["_block","_bodies","_body","_bodyGroup","_humanity","_index","_lb","_lock","_text","_puid"];
 	disableSerialization;
 	_blockGroup = 0;
 	_blockPlot = 0;
 	_bodies = [];
 	_lb = (findDisplay 88890) displayCtrl 8888;
+	_humanity = player getVariable ["humanity",0];
 	_puid = getPlayerUID player;
 	{
 		if ((!isNull _x) && {(_x getVariable["bodyUID","0"]) == _puid}) then {
@@ -53,22 +55,32 @@ spawnFill = {
 	{
 		_text = _x select 0;
 		if !(_text in _block) then {
-			_index = _lb lbAdd _text;
+			_lock = 0;
 			_level = _x select 2;
 			_hlevel = _x select 3;
+			if (((_hlevel < 0) && {_humanity >= _hlevel}) || 
+				{(_level == 1) && {!(_puid in _spawnLevel1)}} || 
+				{(_level == 2) && {!(_puid in _spawnLevel2)}} ||
+				{(_level == 3) && {!(_puid in _spawnLevel3)}} ||
+				{(_hlevel > 0) && {_humanity <= _hlevel}}
+				) then {_lock=1;};
+			_index = _lb lbAdd _text;
+			UNLCK_PIC
+			if (_lock > 0) then {_lb lbSetPicture [_index,"\ca\ui\data\ui_server_locked_ca.paa"];};
 			if (count _x > 4) then {_lb lbSetColor [_index,[.97,.87,.35,1]];};
 			if (_hlevel > 0) then {_lb lbSetColor [_index,[.38,.7,.9,1]];};
 			if (_hlevel < 0) then {_lb lbSetColor [_index,[1,0,0,.8]];};
 			if (_level > 0) then {_lb lbSetColor [_index,[0,1,0,.8]];};
 		};
 	} forEach _spawnPoints;
-	if ((_blockGroup < 1) && {_spawnNearGroup} && {count (uiNamespace getVariable "myGroupPos") > 0}) then {_index = _lb lbAdd "Near MyGroup";_lb lbSetColor [_index,[1,.7,.4,1]];};
-	if ((_blockPlot < 1) && {count (uiNamespace getVariable "myPlotPos") > 0}) then {_index = _lb lbAdd "Near MyPlot";_lb lbSetColor [_index,[1,.7,.4,1]];};
+	if ((_blockGroup < 1) && {_spawnNearGroup} && {count (uiNamespace getVariable "myGroupPos") > 0}) then {_index = _lb lbAdd "Near MyGroup";_lb lbSetColor [_index,[1,.7,.4,1]];UNLCK_PIC};
+	if ((_blockPlot < 1) && {count (uiNamespace getVariable "myPlotPos") > 0}) then {_index = _lb lbAdd "Near MyPlot";_lb lbSetColor [_index,[1,.7,.4,1]];UNLCK_PIC};
 	if (_puid in _customBase) then {
 		{if (_puid == _x) then {_index = _forEachIndex;};} forEach _customBase;
 		_base = _customBases select _index;
 		_index = _lb lbAdd (_base select 0);
 		_lb lbSetColor [_index,[0,1,0,.8]];
+		UNLCK_PIC
 	};
 	lbSort _lb;
 };
@@ -88,9 +100,9 @@ spawnPick = {
 		_puid = getPlayerUID player;
 		if ((_hlevel < 0) && {_humanity >= _hlevel}) exitWith {systemChat format["Your humanity must be less than %1 for this spawn.",_hlevel];_go=0;};
 		if ((_hlevel > 0) && {_humanity <= _hlevel}) exitWith {systemChat format["Your humanity must be greater than %1 for this spawn.",_hlevel];_go=0;};
-		if ((_level == 1) && {!(_puid in _spawnLevel1)}) exitWith {systemChat "This spawn is level 1 VIP only.";_go=0;};
-		if ((_level == 2) && {!(_puid in _spawnLevel2)}) exitWith {systemChat "This spawn is level 2 VIP only.";_go=0;};
-		if ((_level == 3) && {!(_puid in _spawnLevel3)}) exitWith {systemChat "This spawn is level 3 VIP only.";_go=0;};
+		if ((_level == 1) && {!(_puid in _spawnLevel1)}) exitWith {systemChat "This spawn is for level 1 VIPs only.";_go=0;};
+		if ((_level == 2) && {!(_puid in _spawnLevel2)}) exitWith {systemChat "This spawn is for level 2 VIPs only.";_go=0;};
+		if ((_level == 3) && {!(_puid in _spawnLevel3)}) exitWith {systemChat "This spawn is for level 3 VIPs only.";_go=0;};
 	};
 	if (_go > 0) then {uiNamespace setVariable ["spawnChoice",_spawn];};
 };
