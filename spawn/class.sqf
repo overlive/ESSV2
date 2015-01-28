@@ -236,11 +236,9 @@ if !(_isPZombie) then {
 	};
 	
 	_wep = primaryWeapon player;
-	if (_wep != "") then {
-		_muzzle = getArray(configFile >> "cfgWeapons" >> _wep >> "muzzles");
-		if (count _muzzle > 1) then {player selectWeapon (_muzzle select 0);} else {player selectWeapon _wep;};
-		reload player;
-	};
+	if (_wep == "") then {{if (_x in _pistols) exitWith {_wep = _x;};} count (weapons player);};
+	_muzzle = getArray(configFile >> "cfgWeapons" >> _wep >> "muzzles");
+	if (count _muzzle > 1) then {player selectWeapon (_muzzle select 0);} else {player selectWeapon _wep;};
+	reload player;
 };
-
 classFill=nil;classPick=nil;classPreview=nil;
