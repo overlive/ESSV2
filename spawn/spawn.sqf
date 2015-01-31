@@ -36,7 +36,7 @@ spawnFill = {
 		};
 	} count allDead;
 	if (_spawnNearPlot) then {
-		_poles = nearestObjects [getMarkerPos "center",["Plastic_Pole_EP1_DZ"],_mapRadius];
+		_poles = (getMarkerPos "center") nearEntities ["Plastic_Pole_EP1_DZ",_mapRadius];
 		{if ((_x getVariable ["ownerPUID","0"]) == _puid) exitWith {uiNamespace setVariable ["myPlotPos",[_x]];};} count _poles;
 	};
 	_block = [];
