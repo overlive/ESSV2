@@ -77,7 +77,7 @@ classPreview = {
 	};
 	_pPos = getPosASL player;
 	_unit = _model createVehicleLocal _pPos;
-	{_unit addWeapon _x;_qty=1;} count _weps+_startWeps;
+	{if !(_x in (weapons _unit)) then {_unit addWeapon _x;_qty=1;};} count _weps+_startWeps;
 	if ((primaryWeapon _unit) == "") then {deleteVehicle _unit;_unit = createAgent [_model,_pPos,[],0,"CAN_COLLIDE"];};
 	_unit attachTo [player,[.34,3.8,1.1]];
 	_unit setDir ((getDir player) + 180);
@@ -89,8 +89,8 @@ private ["_cam","_class","_mags","_model","_muzzle","_myModel","_pistol","_pisto
 uiNamespace setVariable ["classChoice",[]];
 
 if !(_isPZombie) then {
+	{player removeMagazine _x;} count magazines player;
 	removeAllWeapons player;
-	removeAllItems player;
 	removeBackpack player;
 	player addWeapon "ItemWatch";_qty=1;
 	_light = "#lightpoint" createVehicleLocal _debug;
@@ -192,8 +192,8 @@ if !(_isPZombie) then {
 	};
 	
 	player attachTo [_holder,[0,0,0]];
+	{player removeMagazine _x;} count magazines player;
 	removeAllWeapons player;
-	removeAllItems player;
 	removeBackpack player;
 	
 	{CHECK1 _qty = (_startMags select (_forEachIndex+1));CHECK2 for "_i" from 1 to _qty do {player addMagazine _x;_qty=1;};};} forEach _startMags;
@@ -225,7 +225,7 @@ if !(_isPZombie) then {
 	if (_hasPistolAmmo > 0) then {{player removeMagazines _x;} count _pistolAmmo;};
 
 	{CHECK1 _qty = (_mags select (_forEachIndex+1));CHECK2 for "_i" from 1 to _qty do {player addMagazine _x;_qty=1;};};} forEach _mags;
-	{player addWeapon _x;_qty=1;} count _weps;
+	{if !(_x in (weapons player)) then {player addWeapon _x;_qty=1;};} count _weps;
 	
 	if (_bag != "") then {player addBackpack _bag};
 	if ((isNull (unitBackpack player)) && {_startBag != ""}) then {player addBackpack _startBag;};
