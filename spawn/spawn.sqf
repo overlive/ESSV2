@@ -31,7 +31,7 @@ spawnFill = {
 	{
 		if ((!isNull _x) && {(_x getVariable["bodyUID","0"]) == _puid}) then {
 			_bodies set [count _bodies,(getPosATL _x)];
-			_bodyGroup = _x getVariable["bodyGroup","0"];
+			_bodyGroup = _x getVariable["bodyGroup",grpNull];
 			if (count units _bodyGroup > 1) then {uiNamespace setVariable ["myGroupPos",[_bodyGroup]];};
 		};
 	} count allDead;
