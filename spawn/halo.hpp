@@ -28,7 +28,7 @@ class HaloDialog
 			colorBackground[] = {.384,.702,.886,.8};
 			fixedWidth = 0;
 			shadow = 1;
-			sizeEx = .025;
+			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * .6)";
 		};
 		class HaloAir: RscPicture
 		{
@@ -71,7 +71,7 @@ class HaloDialog
 			offsetPressedY = .002;
 			offsetX = .003;
 			offsetY = .003;
-			sizeEx = .025;
+			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * .6)";
 			soundClick[] = {"\ca\ui\data\sound\onclick",.07,1};
 			soundEnter[] = {"\ca\ui\data\sound\onover",.09,1};
 			soundEscape[] = {"\ca\ui\data\sound\onescape",.09,1};
@@ -102,7 +102,7 @@ class HaloDialog
 			offsetPressedY = .002;
 			offsetX = .003;
 			offsetY = .003;
-			sizeEx = .025;
+			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * .6)";
 			soundClick[] = {"\ca\ui\data\sound\onclick",.07,1};
 			soundEnter[] = {"\ca\ui\data\sound\onover",.09,1};
 			soundEscape[] = {"\ca\ui\data\sound\onescape",.09,1};

@@ -28,7 +28,7 @@ class ClassDialog
 			colorBackground[] = {.384,.702,.886,.8};
 			fixedWidth = 0;
 			shadow = 1;
-			sizeEx = .025;
+			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * .6)";
 		};
 		class ClassList
 		{
@@ -58,7 +58,7 @@ class ClassDialog
 				shadow = 0;
 				thumb = "";
 			};
-			sizeEx = .025;
+			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * .6)";
 			soundSelect[] = {"",.1,1};
 			style = 16;
 			type = 5;
@@ -86,7 +86,7 @@ class ClassDialog
 			offsetPressedY = .002;
 			offsetX = .003;
 			offsetY = .003;
-			sizeEx = .025;
+			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * .6)";
 			soundClick[] = {"\ca\ui\data\sound\onclick",.07,1};
 			soundEnter[] = {"\ca\ui\data\sound\onover",.09,1};
 			soundEscape[] = {"\ca\ui\data\sound\onescape",.09,1};
