@@ -28,7 +28,7 @@ class SpawnDialog
 			colorBackground[] = {.384,.702,.886,.8};
 			fixedWidth = 0;
 			shadow = 1;
-			sizeEx = .03;
+			sizeEx = .025;
 		};
 		class SpawnList
 		{
@@ -58,7 +58,7 @@ class SpawnDialog
 				shadow = 0;
 				thumb = "";
 			};
-			sizeEx = .03;
+			sizeEx = .025;
 			soundSelect[] = {"",.1,1};
 			style = 16;
 			type = 5;
@@ -86,7 +86,7 @@ class SpawnDialog
 			offsetPressedY = .002;
 			offsetX = .003;
 			offsetY = .003;
-			sizeEx = .03;
+			sizeEx = .025;
 			soundClick[] = {"\ca\ui\data\sound\onclick",.07,1};
 			soundEnter[] = {"\ca\ui\data\sound\onover",.09,1};
 			soundEscape[] = {"\ca\ui\data\sound\onescape",.09,1};
@@ -109,7 +109,7 @@ class SpawnDialog
 			colorOutside[] = {0,0,0,1};			
 			style = 48;
 			font = "EtelkaNarrowMediumPro";
-			sizeEx = .04;
+			sizeEx = .025;
 			type = 101;
 			colorBackground[] = {.8,.8,.8,1};
 			colorText[] = {0,0,0,1};
@@ -257,7 +257,7 @@ class SpawnDialog
 				w = .34;
 				h = .152;
 				font = "Zeppelin32";
-				sizeEx = .03921;
+				sizeEx = .025;
 				colorBackground[] = {0,0,0,1};
 				color[] = {0,0,0,1};
 			};
