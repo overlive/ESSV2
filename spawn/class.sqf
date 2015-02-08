@@ -201,6 +201,8 @@ if !(_isPZombie) then {
 	removeAllItems player;
 	removeAllWeapons player;
 	removeBackpack player;
+	player addWeapon "Loot";
+	player addWeapon "Flare";
 	
 	{CHECK1 _qty = (_startMags select (_forEachIndex+1));CHECK2 for "_i" from 1 to _qty do {player addMagazine _x;_qty=1;};};} forEach _startMags;
 	{player addWeapon _x;_qty=1;} count _startWeps;
@@ -242,6 +244,7 @@ if !(_isPZombie) then {
 	};
 	
 	_wep = primaryWeapon player;
+	if ((getText(configFile >> "cfgWeapons" >> _wep >> "melee")) == "true") then {call dayz_meleeMagazineCheck;};
 	if (_wep == "") then {{if (_x in _pistols) exitWith {_wep = _x;};} count (weapons player);};
 	_muzzle = getArray(configFile >> "cfgWeapons" >> _wep >> "muzzles");
 	if (count _muzzle > 1) then {player selectWeapon (_muzzle select 0);} else {player selectWeapon _wep;};
