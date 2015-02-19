@@ -22,7 +22,7 @@ cutText ["","BLACK IN"];
 if (!isNil "_haloDrop") then {
 	while {(((getPos player) select 2) > _autoOpenHeight) && {isNil "bis_fnc_halo_para_dirAbs"}} do {
 		player allowDamage false;
-		if !((vehicle player) isKindOf _haloType) then {
+		if ((isNil "_haloType") || {!((vehicle player) isKindOf _haloType)}) then {
 			titleText [("                                      ALTITUDE: " + str (round((getPos player) select 2)) + "\n\n                                      Scroll 'Mouse' select Open Chute"),"PLAIN DOWN",.1];
 		};
 		uiSleep .1;
