@@ -20,7 +20,7 @@ moveMap = {
 
 spawnFill = {
 	#include "spawnConfig.sqf"
-	private ["_block","_bodies","_body","_bodyGroup","_humanity","_index","_lb","_lock","_text","_puid"];
+	private ["_block","_bodies","_body","_humanity","_index","_lb","_lock","_text","_puid"];
 	disableSerialization;
 	_blockGroup = 0;
 	_blockPlot = 0;
@@ -28,13 +28,8 @@ spawnFill = {
 	_lb = (findDisplay 88890) displayCtrl 8888;
 	_humanity = player getVariable ["humanity",0];
 	_puid = getPlayerUID player;
-	{
-		if ((!isNull _x) && {(_x getVariable["bodyUID","0"]) == _puid}) then {
-			_bodies set [count _bodies,(getPosATL _x)];
-			_bodyGroup = _x getVariable["bodyGroup",grpNull];
-			if (count units _bodyGroup > 1) then {uiNamespace setVariable ["myGroupPos",[_bodyGroup]];};
-		};
-	} count allDead;
+	{if ((!isNull _x) && {(_x getVariable["bodyUID","0"]) == _puid}) then {_bodies set [count _bodies,(getPosATL _x)];};} count allDead;
+	if ((_spawnNearGroup) && {count units group player > 1}) then {uiNamespace setVariable ["myGroupPos",[(group player)]];};
 	if (_spawnNearPlot) then {
 		_poles = (getMarkerPos "center") nearEntities ["Plastic_Pole_EP1_DZ",_mapRadius];
 		{if ((_x getVariable ["ownerPUID","0"]) == _puid) exitWith {uiNamespace setVariable ["myPlotPos",[_x]];};} count _poles;
@@ -73,7 +68,7 @@ spawnFill = {
 			if (_level > 0) then {_lb lbSetColor [_index,[0,1,0,.8]];};
 		};
 	} forEach _spawnPoints;
-	if ((_blockGroup < 1) && {_spawnNearGroup} && {count (uiNamespace getVariable "myGroupPos") > 0}) then {_index = _lb lbAdd "Near MyGroup";_lb lbSetColor [_index,[1,.7,.4,1]];UNLCK_PIC};
+	if ((_blockGroup < 1) && {count (uiNamespace getVariable "myGroupPos") > 0}) then {_index = _lb lbAdd "Near MyGroup";_lb lbSetColor [_index,[1,.7,.4,1]];UNLCK_PIC};
 	if ((_blockPlot < 1) && {count (uiNamespace getVariable "myPlotPos") > 0}) then {_index = _lb lbAdd "Near MyPlot";_lb lbSetColor [_index,[1,.7,.4,1]];UNLCK_PIC};
 	if (_puid in _customBase) then {
 		{if (_puid == _x) then {_index = _forEachIndex;};} forEach _customBase;
