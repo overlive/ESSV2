@@ -54,7 +54,7 @@ _spawnLevel3 = ["0","0","0"];
 // _spawnLevel3 = ["0","0","0"] + _spawnLevel2;
 
 _spawnPoints = [
-	["Random",[[4932,1989,0],[12048,8352,0],[6901,2509,0],[10294,2191,0],[2236,1923,0],[13510,5249,0]],0,0,1], // Random will never be blocked, so you should always keep it if using body check.
+	["Random",[[4932,1989,0],[12048,8352,0],[6901,2509,0],[10294,2191,0],[2236,1923,0],[13510,5249,0]],0,0,1], // Random will never be blocked, so always keep it if using body check.
 	["Balota",[4932,1989,0],0,0],
 	["Berezino",[12048,8352,0],0,0],
 	["Cherno",[6901,2509,0],0,0],
