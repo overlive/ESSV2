@@ -153,7 +153,7 @@ _spawnPoints = [
 	["Ihrhofen",[9640,19193,0],0,0],
 	["Old Airfield",[17253,2167,0],0,0]
 
- Panthera
+ Panthera - No time to add. Please post spawn names as pull request or on support thread if you use these
 	["Random",[[1725,5463,0],[1640,4350,0],[5897,1669,0],[8745,2248,0],[2454,6911,0],[3250,2556,0],[4115,3820,0],[1876,2840,0],[7988,6808,0],[8818,5909,0],[6117,3812,0]],0,0,1],
 	["Unknown1",[1725,5463,0],0,0],
 	["Unknown2",[1640,4350,0],0,0],
@@ -207,5 +207,20 @@ _spawnPoints = [
 	["Nemsk Factory",[7859,9096,0],0,0],
 	["Jalovisko",[8756,10119,0],0,0],
 	["Brensk Bay",[5823,5641,0],0,0]
+	// Above are defaults
+	
+ Takistan - No time to add. Please post spawn names as pull request or on support thread if you use these
+	["Random",[[8604,7735,0],[3899,7279,0],[8615,5291,0],[5650,4254,0],[6212,8806,0],[4486,4622,0],[4802,8408,0],[7622,8554,0],[7424,4389,0],[8740,6432,0],[3731,5860,0]],0,0,1],
+	["Unknown1",[8604,7735,0],0,0],
+	["Unknown2",[3899,7279,0],0,0],
+	["Unknown3",[8615,5291,0],0,0],
+	["Unknown4",[5650,4254,0],0,0],
+	["Unknown5",[6212,8806,0],0,0],
+	["Unknown6",[4486,4622,0],0,0],
+	["Unknown7",[4802,8408,0],0,0],
+	["Unknown8",[7622,8554,0],0,0],
+	["Unknown9",[7424,4389,0],0,0],
+	["Unknown10",[8740,6432,0],0,0],
+	["Unknown11",[3731,5860,0],0,0]
 	// Above are defaults
 */
