@@ -11,7 +11,7 @@ Use the base gear that you want all (or most) classes to have. Start binocs, pis
 are specified in the selected class. 
 
 3. _customLoadout - List of UIDs with custom loadouts.
-   _customLoadouts - List of custom loadouts. These must match the order of the first list. The first UID in _customLoadout corresponds with the first loadout in vipListClasses and so on. 
+   _customLoadouts - List of custom loadouts. These must match the order of the first list. The first UID in _customLoadout corresponds with the first loadout in _customLoadouts and so on. 
    These will only show in the class dialog for the player who owns them. If multiple UIDs share the same loadout then add the same loadout multiple times to maintain order, 
    or consider making it a VIP class in _publicClasses instead. Each loadout must have a unique name just like regular classes.
    
