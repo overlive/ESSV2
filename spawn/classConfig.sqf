@@ -38,7 +38,7 @@ are specified in the selected class.
 5. Random class format:
 	[
 		Name, 
-		[MaleSkins,FemaleSkins], 
+		[[Male Skins],[Female Skins]],
 		Mags+Items, #ofItemPicks, 
 		Tools, #ofToolPicks, 
 		Primary, #ofPrimaryMags, 
