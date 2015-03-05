@@ -93,9 +93,9 @@ _customLoadouts = [
 _classLevel1 = ["0","0","0"];
 _classLevel2 = ["0","0","0"];
 _classLevel3 = ["0","0","0"];
-// To give higher level VIPs access to lower level VIP classes too use +. For example:
-// _classLevel2 = ["0","0","0"] + _classLevel1;
-// _classLevel3 = ["0","0","0"] + _classLevel2;
+// To give higher level VIPs access to lower level VIP classes uncomment the two lines below:
+// _classLevel1 = _classLevel1 + _classLevel2 + _classLevel3;
+// _classLevel2 = _classLevel2 + _classLevel3;
 
 _publicClasses = [
 	[
