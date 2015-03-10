@@ -39,7 +39,8 @@ _haloDrop = {
 uiNamespace setVariable ["haloChoice",-1];
 if (!_isPZombie) then {
 	while {uiNamespace getVariable "haloChoice" == -1} do {
-		AT_SPAWN
+		_nearNow = call _atSpawn;
+		{if !(_x in _nearFinal) then {_nearFinal set [count _nearFinal,_x];};} count _nearNow;
 		if (!dialog) then {cutText ["","BLACK OUT",0];_i="createDialog";createDialog "HaloDialog";};
 		uiSleep 1;
 	};

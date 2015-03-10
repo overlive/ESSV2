@@ -108,7 +108,8 @@ uiNamespace setVariable ["spawnChoice",[]];
 uiNamespace setVariable ["myPlotPos",[]];
 
 while {count (uiNamespace getVariable "spawnChoice") < 1} do {
-	AT_SPAWN
+	_nearNow = call _atSpawn;
+	{if !(_x in _nearFinal) then {_nearFinal set [count _nearFinal,_x];};} count _nearNow;
 	if (!dialog) then {cutText ["","BLACK OUT",0];_i="createDialog";createDialog "SpawnDialog";call spawnFill;call moveMap;};
 	uiSleep 1;
 };

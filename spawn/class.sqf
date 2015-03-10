@@ -122,7 +122,8 @@ if !(_isPZombie) then {
 	_cam attachTo [player,[0,.8,1.9]];
 	
 	while {count (uiNamespace getVariable "classChoice") < 1} do {
-		AT_SPAWN
+		_nearNow = call _atSpawn;
+		{if !(_x in _nearFinal) then {_nearFinal set [count _nearFinal,_x];};} count _nearNow;
 		if (!dialog) then {_i="createDialog";createDialog "ClassDialog";call classFill;call classPreview;player switchMove "";};
 		uiSleep 1;
 	};
