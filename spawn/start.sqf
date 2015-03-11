@@ -1,3 +1,4 @@
+#define AT_SPAWN _nearNow=call _atSpawn;{if!(_x in _nearFinal)then{_nearFinal set [count _nearFinal,_x];};}count _nearNow;
 private ["_debug","_go","_holder","_isPZombie","_platform"];
 
 _debug = getMarkerPos "respawn_west";
