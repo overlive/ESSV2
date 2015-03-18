@@ -44,7 +44,7 @@ classPick = {
 	_go = 1;
 	GET_CLASS
 	if (isNil "_class") exitWith {systemChat "Select a class!";_go=0;};
-	if (count _class > 8) then {
+	if (count _class > 9) then {
 		_level = _class select 8;
 		_hlevel = _class select 9;
 		if (count _class > 11) then {_level = _class select 19;_hlevel = _class select 20;};
@@ -96,7 +96,7 @@ classPreview = {
 	_unit enableSimulation false;
 };
 
-private ["_cam","_class","_mags","_model","_muzzle","_myModel","_pistol","_pistols","_pistolAmmo","_qty","_tool","_tools","_wep","_weps"];
+private ["_cam","_class","_coins","_mags","_model","_muzzle","_myModel","_pistol","_pistols","_pistolAmmo","_qty","_tool","_tools","_wealth","_wep","_weps"];
 #include "classConfig.sqf"
 uiNamespace setVariable ["classChoice",[]];
 
@@ -259,5 +259,17 @@ if !(_isPZombie) then {
 	_muzzle = getArray(configFile >> "cfgWeapons" >> _wep >> "muzzles");
 	if (count _muzzle > 1) then {player selectWeapon (_muzzle select 0);} else {player selectWeapon _wep;};
 	reload player;
+	
+	_coins = _class select 8;
+	if (count _class > 9) then {_coins = _class select 10;};
+	if (count _class > 11) then {_coins = _class select 21;};
+	if (_coins > 0) then {
+		_wealth = player getVariable[_currencyVariable,0];
+		player setVariable[_currencyVariable,_wealth + _coins,true];
+		PVDZE_plr_Save = [player,(magazines player),true,true];
+		publicVariableServer "PVDZE_plr_Save";
+		player setVariable ["moneychanged",1,true];
+		systemChat format["%1 coins added",_coins];
+	};
 };
 classFill=nil;classPick=nil;classPreview=nil;
