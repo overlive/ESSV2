@@ -54,4 +54,5 @@ if (_go) then {
 	enableEnvironment true;
 	0 fadeSound 1;
 	if (isNil "_halo") then {cutText ["","BLACK IN"];};
+	profileNamespace setVariable["coinsRecentlyAdded",false];saveProfileNamespace;
 };
