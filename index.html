@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="style.css" />
+  <title>ESSV2 - Enhanced Spawn Selection V2</title>
+</head>
+<body id="essv2">
+  <main>
+  <h1>ESSV2 - Enhanced Spawn Selection V2</h1>
+  <h3>What it does:</h3>
+  <p>Provides dialogs to select spawn point, class and spawn type (air or ground) on respawn. These scripts are fully modular. Each selector is optional.</p>
+  <h3>Class Features:</h3>
+  <ul>
+    <li>Preview bot shows currently selected skin and primary weapon</li>
+    <li>Configurable random and preset loadouts</li>
+    <li>Restrict by VIP level and humanity level</li>
+    <li>Restrict by individual UID for custom loadouts</li>
+    <li>Specify male and female skins for each class</li>
+  </ul>
+  <h3>Spawn Features:</h3>
+  <ul>
+    <li>All maps supported</li>
+    <li>Animated in-game map control shows preview of currently selected spawn</li>
+    <li>Block all spawns within a set distance of a player's bodies (optional)</li>
+    <li>Easy to add or remove spawns</li>
+    <li>Restrict by VIP level and humanity level</li>
+    <li>Restrict by individual UID for custom bases</li>
+    <li>Optional spawn near my group (requires DZGM)</li>
+    <li>Optional spawn near my plot pole (requires Plot4Life)</li>
+  </ul>
+  <h3>Halo Features:</h3>
+  <ul>
+    <li>Optional jump from back seat of plane (type configurable)</li>
+    <li>Altimeter titletext</li>
+    <li>Auto open chute at set height</li>
+  </ul>
+  <h2>Install Steps:</h2>
+  <ol>
+    <li>In init.sqf find this:
+      <code>_playerMonitor = [] execVM "\z\addons\dayz_code\system\player_monitor.sqf";</code>
+      Add right below:
+      <code>execVM "spawn\start.sqf";</code>
+    </li>
+    <li>Near the top of init.sqf if you have these lines make sure they are set as shown:
+      <code>dayz_spawnselection = 0;</code> (if using ESS spawn selector)
+      <code>dayz_paraSpawn = false;</code>
+      <strong>Note:</strong> If using a separate file for Epoch config variables make sure they are set as shown in that too!
+    </li>
+    <li>At the bottom of description.ext add this:
+<pre><code>#include "spawn\class.hpp"
+#include "spawn\halo.hpp"
+#include "spawn\spawn.hpp"
+</code></pre>
+    </li>
+    <li>Place the \spawn\ folder in your mission root.</li>
+    <li>If using ESS spawn selector:
+      <input class="spoilerbutton" type="button" value="Show" onclick="this.value=this.value=='Show'?'Hide':'Show';" />
+      <div class="spoiler"><div>
+        In dayz_server\compile\server_playerSetup.sqf find this block:
+        <strong>Epoch: </strong><a href="http://pastebin.com/LiJ3HXvg">http://pastebin.com/LiJ3HXvg</a>
+        <strong>vanilla DayZ: </strong><a href="http://pastebin.com/aCMQ9tD1">http://pastebin.com/aCMQ9tD1</a>
+        Replace the whole block with this:
+<pre><code>if (_randomSpot) then {
+  if (!isDedicated) then {endLoadingScreen;};
+  _debug = getMarkerpos "respawn_west";
+  _worldspace = [0,[_debug select 0,_debug select 1,0.3]];
+};
+</code></pre>
+      </div></div>
+    </li>
+    <li>In dayz_server\compile\server_playerSetup.sqf:
+      <ul>
+        <li><strong>Epoch:</strong>
+          Find this line: <code>dayzPlayerLogin2 = [_worldspace,_state];</code>
+          Replace with: <code>dayzPlayerLogin2 = [_worldspace,_state,_randomSpot];</code>      
+        </li>      
+        <li><strong>vanilla DayZ:</strong>
+          Find this line: <code>PVCDZ_plr_Login2 = [_worldspace,_state,_Achievements];</code>
+          Replace with: <code>PVCDZ_plr_Login2 = [_worldspace,_state,_Achievements,_randomSpot];</code>
+        </li>
+        <li><strong>Overwatch:</strong>
+          Find this line: <code>PVCDZ_plr_Login2 = [_worldspace,_state];</code>
+          Replace with: <code>PVCDZ_plr_Login2 = [_worldspace,_state,_randomSpot];</code>
+        </li>
+      </ul>
+    </li>
+    <li>If using body check:
+      <input class="spoilerbutton" type="button" value="Show" onclick="this.value=this.value=='Show'?'Hide':'Show';" />
+      <div class="spoiler"><div>In dayz_server\compile\server_playerDied.sqf find:
+        <code>_newObject setVariable ["bodyName", _victimName, true];</code>    
+        Add below:
+        <code>_newObject setVariable ["bodyUID", _playerID, true];</code>
+      </div></div>
+    </li>
+    <li>If using infistar:
+      <input class="spoilerbutton" type="button" value="Show" onclick="this.value=this.value=='Show'?'Hide':'Show';" />
+      <div class="spoiler"><div>
+        <ul>
+          <li>If using ESS spawn selector:
+            In AHConfig.sqf add 88890 to allowed dialogs:
+            <code>_ALLOWED_Dialogs = [-1,106, ... ,88890];</code>
+          </li>
+          <li>If using class or spawn selection:
+            Delete this from AH.sqf:
+            <code>lbsetpicture='no';</code>  
+            Also delete lbsetpicture from the functions restored check (_FRC):
+            <code>'lbsetpicture',</code>    
+          </li>
+		  <li>If using plane spawn:
+            Delete this from AH.sqf:
+<pre><code>_aidriver = true;
+player setVectorUp [0,0,1];
+player setVelocity [0,0,0];
+player setPosATL _lastPos;</code></pre>
+          </li>
+		  <li>Set <strong>_CKD = false;</strong> in AHconfig.sqf (this check is currently broken)</li>
+        </ul>
+      </div></div>
+    </li>
+    <li>Edit the spawn\config files with the settings you want</li>
+    <li>If using Sauerland and ESS spawn selector:
+      <input class="spoilerbutton" type="button" value="Show" onclick="this.value=this.value=='Show'?'Hide':'Show';" />
+      <div class="spoiler"><div>In mission.sqm find this:
+<pre><code>position[]={12547.509,213.96613,-5865.772};
+name="respawn_west";</code></pre>
+        Change to:
+<pre><code>position[]={25594.2,0,5.18089};
+name="respawn_west";</code></pre>
+      </div></div>
+    </li>
+    <li>Extra steps for vanilla DayZ or Overwatch (NOT Overpoch) only:
+      <input class="spoilerbutton" type="button" value="Show" onclick="this.value=this.value=='Show'?'Hide':'Show';" />
+      <div class="spoiler"><div>
+        <ul>
+          <li>If you already have a custom variables.sqf:
+            <input class="spoilerbutton" type="button" value="Show" onclick="this.value=this.value=='Show'?'Hide':'Show';" />
+            <div class="spoiler"><div>Copy the code inside the Non-Epoch Configs\variables.sqf file. Paste at the very bottom of your variables.sqf
+            </div></div>
+          </li>
+          <li>If you do not have a custom variables.sqf:
+            <input class="spoilerbutton" type="button" value="Show" onclick="this.value=this.value=='Show'?'Hide':'Show';" />
+            <div class="spoiler"><div>
+              In init.sqf find this line:
+              <code>call compile preprocessFileLineNumbers "\z\addons\dayz_code\init\variables.sqf";</code>
+              Add this line directly below it:
+              <code>call compile preprocessFileLineNumbers "custom\variables.sqf";</code>
+              Now put the Non-Epoch\variables.sqf file in your mission\custom folder.
+            </div></div>
+          </li>
+          <li>If using halo:
+            <input class="spoilerbutton" type="button" value="Show" onclick="this.value=this.value=='Show'?'Hide':'Show';" />
+            <div class="spoiler"><div>    
+              <strong>For vanilla DayZ:</strong>
+              <input class="spoilerbutton" type="button" value="Show" onclick="this.value=this.value=='Show'?'Hide':'Show';" />
+              <div class="spoiler"><div>
+                In dayz_server\system\scheduler\sched_safetyVehicle.sqf find this line:
+<pre><code>if (vehicle _x != _x &amp;&amp; !(vehicle _x in dayz_serverObjectMonitor) &amp;&amp; (typeOf vehicle _x) != "ParachuteWest") then {</code></pre>
+                Replace with:
+<pre><code>if (vehicle _x != _x &amp;&amp; !(vehicle _x in dayz_serverObjectMonitor) &amp;&amp; (typeOf vehicle _x) != "ParachuteWest" &amp;&amp; (typeOf vehicle _x) != "ParachuteC") then {</code></pre>
+              </div></div>
+              <strong>For Overwatch:</strong>
+              <input class="spoilerbutton" type="button" value="Show" onclick="this.value=this.value=='Show'?'Hide':'Show';" />
+              <div class="spoiler"><div>
+                In dayz_server\system\server_cleanup.fsm find this line:
+<pre><code>"    if(vehicle _x != _x &amp;&amp; !(vehicle _x in _safety) &amp;&amp; (typeOf vehicle _x) != ""ParachuteWest"") then {" \n</code></pre>
+                Replace with:
+<pre><code>"  if(vehicle _x != _x &amp;&amp; !(vehicle _x in _safety) &amp;&amp; (typeOf vehicle _x) != ""ParachuteWest"" &amp;&amp; (typeOf vehicle _x) != ""ParachuteC"") then {" \n</code></pre>
+              </div></div>
+            </div></div>
+          </li>
+          <li>If using official vanilla DayZ BE filters:
+            <input class="spoilerbutton" type="button" value="Show" onclick="this.value=this.value=='Show'?'Hide':'Show';" />
+            <div class="spoiler"><div>Add this to the end of line 1 (not line 0!) in createvehicle.txt:
+<pre><code>!=(Citizen3|CZ_Soldier_DES_EP1|Rocket_DZ|TK_INS_Soldier_EP1|US_Soldier_EP1|Villager1|Worker1|ParachuteC)</code></pre>
+            </div></div>
+          </li>
+        </ul>
+      </div></div>
+    </li>
+  </ol>
+  <figure><img src="classselect.png" alt="Class Selection" width="778" height="448" /></figure>
+  <figure><img src="spawnselect.png" alt="Spawn Selection" width="778" height="448" /></figure>
+  <figure><img src="haloselect.png" alt="Halo Selection" width="778" height="448" /></figure>
+  <figure><img src="planedrop.jpg" alt="Plane Drop" width="778" height="448" /></figure>
+  <h2>Optional Steps:</h2>
+  <ol>
+    <li>If using ESS spawn selector:
+      <input class="spoilerbutton" type="button" value="Show" onclick="this.value=this.value=='Show'?'Hide':'Show';" />
+      <div class="spoiler"><div>In dayz_server\compile\server_playerSync.sqf find this:
+<pre><code>if (_distance &lt; 2000) exitWith {
+  diag_log format["ERROR: server_playerSync: Cannot Sync Player %1 [%2]. Position in debug! %3",_name,_characterID,_charPos];
+};</code></pre>
+        <p>Replace with: <code>if (_distance &lt; 2000) exitWith {};</code>    
+        This will prevent spamming RPT while player is selecting spawn.</p>
+        <p>You can safely delete the spawn# markers in mission.sqm. They are not being used:
+        In mission.sqf find and delete:</p>
+        <input class="spoilerbutton" type="button" value="Show" onclick="this.value=this.value=='Show'?'Hide':'Show';" />
+        <div class="spoiler"><div>
+<pre><code>class Item2
+{
+  position[]={4932.3345,0.39950246,1989.1094};
+  name="spawn0";
+  type="Empty";
+};
+class Item3
+{
+  position[]={2236.0391,0.63119155,1923.3735};
+  name="spawn1";
+  type="Empty";
+};
+class Item4
+{
+  position[]={8738.1328,0.45720705,2122.1082};
+  name="spawn2";
+  type="Empty";
+};
+class Item5
+{
+  position[]={10909.267,0.57597214,2422.3096};
+  name="spawn3";
+  type="Empty";
+};
+class Item6
+{
+  position[]={13510.764,0.44504455,5249.3027};
+  name="spawn4";
+  type="Empty";
+};
+...
+</code></pre>
+          <strong>Note:</strong> Most maps have more (spawn0 - spawn9+). Now update this line:
+<pre><code>class Markers
+{
+  items=28;
+</code></pre>
+          <p>Subtract five (or however many markers you removed) from the items count. Last, renumber the remaining markers below Item1 to the correct order. i.e. Item2, Item3, etc.</p>
+        </div></div>
+      </div></div>
+    </li>      
+    <li>If using halo:
+      <input class="spoilerbutton" type="button" value="Show" onclick="this.value=this.value=='Show'?'Hide':'Show';" />
+      <div class="spoiler"><div>Apparently it is possible to force close the game while in a parachute hovering over a player base. 
+        When you login you will be on the ground glitched inside the base. I have not reproduced this exploit myself, but a user reported it. 
+        If you are worried about it you can apply this fix: In dayz_server\compile\server_onPlayerDisconnect.sqf find this:
+        <code>if (vehicle _playerObj != _playerObj) then {</code> Add right below:
+        <pre><code>if ((vehicle _playerObj) isKindOf "ParachuteBase") then {_playerObj setVariable["USEC_injured",true];_playerObj setVariable["USEC_BloodQty",1];};</code></pre>
+        This will kill any player who logs out, force closes their game or loses connection while in a parachute.
+      </div></div>
+    </li>  
+    <li>When done reading the \spawn\config files delete the large comments and the spawnPoint cases for maps you aren't using to save mission file size.</li>
+  </ol>
+  <h2>FAQ:</h2>
+  <h3>How do I remove the class selector?</h3>
+  <input class="spoilerbutton" type="button" value="Show" onclick="this.value=this.value=='Show'?'Hide':'Show';" />
+  <div class="spoiler"><div>
+    <ol>
+      <li>Remove this line from spawn\start.sqf: <code>#include "class.sqf"</code></li>
+      <li>Remove this line from description.ext: <code>#include "spawn\class.hpp"</code></li>
+      <li>Now you can safely delete these files from the \spawn\ folder: class.hpp class.sqf classConfig.sqf</li>
+    </ol>
+  </div></div>
+  <h3>How do I remove the halo selector?</h3>
+  <input class="spoilerbutton" type="button" value="Show" onclick="this.value=this.value=='Show'?'Hide':'Show';" />
+  <div class="spoiler"><div>
+    <ol>
+      <li>Remove this line from spawn\start.sqf: <code>#include "halo.sqf"</code></li>
+      <li>Remove this line from description.ext: <code>#include "spawn\halo.hpp"</code></li>
+      <li>Now you can safely delete these files from the \spawn\ folder: halo.hpp halo.sqf haloConfig.sqf</li>
+    </ol>
+  </div></div>
+  <h3>How do I remove the spawn selector?</h3>
+  <input class="spoilerbutton" type="button" value="Show" onclick="this.value=this.value=='Show'?'Hide':'Show';" />
+  <div class="spoiler"><div>
+    <ol>
+      <li>Remove this line from spawn\start.sqf: <code>#include "spawn.sqf"</code></li>
+      <li>Remove this line from description.ext: <code>#include "spawn\spawn.hpp"</code></li>
+      <li>Now you can safely delete these files from the \spawn\ folder: spawn.hpp spawn.sqf spawnConfig.sqf</li>    
+      <li>If you did step #5 in the main install steps above undo it.</li>
+    </ol>
+    <p><strong>Note:</strong> If you remove both the spawn and halo selectors (are using classes only) you may also safely delete the startSpawn.sqf file.</p>
+  </div></div>
+  <h3>How do I execute code (i.e. welcomeCredits) after spawning in?</h3>
+  <input class="spoilerbutton" type="button" value="Show" onclick="this.value=this.value=='Show'?'Hide':'Show';" />
+  <div class="spoiler"><div>
+    <ul>
+      <li>In spawn\startSpawn.sqf find this line: <code>cutText ["","BLACK IN"];</code></li>
+      <li>Add your code directly below i.e.: <code>execVM "spawn\welcomecredits.sqf";</code></li>
+      <li>Alternatively, you can add it below this line in start.sqf if you want it to show after halo drop finishes or are using classes only: <code>0 fadeSound 1;</code></li>
+      <li>If you want the same script to run whether they are fresh spawn or not then you can add it to the very bottom of spawn\start.sqf instead.</li>
+    </ul>
+  </div></div>
+  <h3>How do I always force air spawn?</h3>
+  <input class="spoilerbutton" type="button" value="Show" onclick="this.value=this.value=='Show'?'Hide':'Show';" />
+  <div class="spoiler"><div>
+    <ol>
+      <li>Find this line in halo.sqf: <code>uiNamespace setVariable ["haloChoice",-1];</code></li>
+      <li>Change to: <code>uiNamespace setVariable ["haloChoice",1];</code><br /></li>
+    </ol>
+    If you do that then you can delete halo.hpp and remove #include "halo.hpp" from description.ext.
+  </div></div>
+  <h3>How long are spawns blocked for by body check?</h3>
+  <input class="spoilerbutton" type="button" value="Show" onclick="this.value=this.value=='Show'?'Hide':'Show';" />
+  <div class="spoiler"><div>
+    <p>As long as the body stays active on the server. Random spawn is never blocked, so you should always keep at least one to prevent running out of spawns. 
+    server_spawncleanDead is defined in server_functions.sqf. On Epoch it is set to delete bodies older than 30 minutes by default. You can change that. In server_functions.sqf find:</p>
+<pre><code>if (diag_tickTime - _deathTime > 1800) then {</code></pre>
+    <p>Change 1800 (30 mins) to 900 (15 mins) or whatever you want. If you change it below 10 mins you would also need to modify server_cleanup.fsm to run the parent loop faster.</p>
+  </div></div>
+  <h3>How do I add more than three VIP levels?</h3>
+  <input class="spoilerbutton" type="button" value="Show" onclick="this.value=this.value=='Show'?'Hide':'Show';" />
+  <div class="spoiler"><div>
+    <ol>
+      <li>Add a line in classConfig.sqf i.e.:
+<pre><code>_classLevel3 = ["0","0","0"];
+_classLevel4 = ["0","0","0"];
+</code></pre>
+      </li>
+      <li>Add a corresponding line in class.sqf classPick function around line 57:
+<pre><code>if ((_level == 3) &amp;&amp; {!(_puid in _classLevel3)}) exitWith {systemChat "This class is for level 3 VIPs only.";_go=0;};
+if ((_level == 4) &amp;&amp; {!(_puid in _classLevel4)}) exitWith {systemChat "This class is for level 4 VIPs only.";_go=0;};
+</code></pre>
+      </li>
+      <li>Also add a corresponding line in class.sqf classFill function around line 22:
+<pre><code>{(_level == 3) &amp;&amp; {!(_puid in _classLevel3)}} ||
+{(_level == 4) &amp;&amp; {!(_puid in _classLevel4)}} ||
+</code></pre>
+      </li>
+    </ol>
+    <p>Now you can use VIP level 4 in your classes. The same can be done for spawn VIP levels in spawnConfig.sqf and spawn.sqf. You can add as many levels as you want.</p>
+  </div></div>
+  <h2>Credits:</h2>
+  <ul>
+    <li><a href="https://github.com/TAWTonic">TAWTonic</a> - For the scrolling map idea from Altis Life</li>
+    <li><a href="http://opendayz.net/members/player2.5572/">Player2</a> - For the method of detecting fresh spawns</li>
+    <li><a href="http://opendayz.net/members/halvhjearne.10143/">@Halvhjearne</a> - For the better altimeter text</li>
+    <li><a href="http://opendayz.net/members/zupa.13531/">Zupa</a> - For some of the dialog styling</li>
+    <li>Everyone who contributed ideas and reported issues in previous versions</li>
+  </ul>
+  <a href="https://github.com/ebaydayz/ESSV2/archive/master.zip"><h2>&gt;&gt;&gt; Download Link &lt;&lt;&lt;</h2></a>
+  <a href="https://github.com/ebaydayz/ESSV2"><h2>&gt;&gt;&gt; GitHub Link &lt;&lt;&lt;</h2></a>
+  (pull requests and issues are always welcome)
+  <a href="http://opendayz.net/threads/support-essv2-enhanced-spawn-selection-v2.21552/"><h2>&gt;&gt;&gt; Support Thread Link &lt;&lt;&lt;</h2></a>
+  <a href="https://github.com/ebaydayz/ESSV2/commits/master"><h2>&gt;&gt;&gt; Change Log &lt;&lt;&lt;</h2></a>
+  </main>
+</body>
+</html>
