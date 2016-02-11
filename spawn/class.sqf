@@ -267,9 +267,6 @@ if !(_isPZombie) then {
 		_wealth = player getVariable[_currencyVariable,0];
 		if !(profileNamespace getVariable["coinsRecentlyAdded",false]) then {
 			player setVariable[_currencyVariable,_wealth + _coins,true];
-			PVDZE_plr_Save = [player,(magazines player),true,true];
-			publicVariableServer "PVDZE_plr_Save";
-			player setVariable ["moneychanged",1,true];
 			profileNamespace setVariable["coinsRecentlyAdded",true];saveProfileNamespace;
 			systemChat format["%1 coins added",_coins];
 		};
