@@ -1,10 +1,10 @@
 Download the latest release:<br/>
 https://github.com/ebaydayz/ESSV2/archive/master.zip<br/>
 
-Check the OpenDayZ thread for install instructions:<br/>
+See the opendayz topic for install steps:<br/>
 http://opendayz.net/threads/release-essv2-enhanced-spawn-selection-v2.21547/<br />
 
-Or the GitHub Pages mirror:<br/>
+Or the gh-pages mirror:<br/>
 https://ebaydayz.github.io/ESSV2/<br/>
 
 This work is licensed under the DAYZ MOD LICENSE SHARE ALIKE (DML-SA). The full license is here:<br/>
