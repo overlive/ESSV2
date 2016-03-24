@@ -183,61 +183,8 @@ name="respawn_west";</code></pre>
   <figure><img src="spawnselect.png" alt="Spawn Selection" width="778" height="448" /></figure>
   <figure><img src="haloselect.png" alt="Halo Selection" width="778" height="448" /></figure>
   <figure><img src="planedrop.jpg" alt="Plane Drop" width="778" height="448" /></figure>
-  <h2>Optional Steps:</h2>
+  <h2>Optional</h2>
   <ol>
-    <li>If using ESS spawn selector:
-      <input class="spoilerbutton" type="button" value="Show" onclick="this.value=this.value=='Show'?'Hide':'Show';" />
-      <div class="spoiler"><div>In dayz_server\compile\server_playerSync.sqf find this:
-<pre><code>if (_distance &lt; 2000) exitWith {
-  diag_log format["ERROR: server_playerSync: Cannot Sync Player %1 [%2]. Position in debug! %3",_name,_characterID,_charPos];
-};</code></pre>
-        <p>Replace with: <code>if (_distance &lt; 2000) exitWith {};</code>    
-        This will prevent spamming RPT while player is selecting spawn.</p>
-        <p>You can safely delete the spawn# markers in mission.sqm. They are not being used:
-        In mission.sqf find and delete:</p>
-        <input class="spoilerbutton" type="button" value="Show" onclick="this.value=this.value=='Show'?'Hide':'Show';" />
-        <div class="spoiler"><div>
-<pre><code>class Item2
-{
-  position[]={4932.3345,0.39950246,1989.1094};
-  name="spawn0";
-  type="Empty";
-};
-class Item3
-{
-  position[]={2236.0391,0.63119155,1923.3735};
-  name="spawn1";
-  type="Empty";
-};
-class Item4
-{
-  position[]={8738.1328,0.45720705,2122.1082};
-  name="spawn2";
-  type="Empty";
-};
-class Item5
-{
-  position[]={10909.267,0.57597214,2422.3096};
-  name="spawn3";
-  type="Empty";
-};
-class Item6
-{
-  position[]={13510.764,0.44504455,5249.3027};
-  name="spawn4";
-  type="Empty";
-};
-...
-</code></pre>
-          <strong>Note:</strong> Most maps have more (spawn0 - spawn9+). Now update this line:
-<pre><code>class Markers
-{
-  items=28;
-</code></pre>
-          <p>Subtract five (or however many markers you removed) from the items count. Last, renumber the remaining markers below Item1 to the correct order. i.e. Item2, Item3, etc.</p>
-        </div></div>
-      </div></div>
-    </li>      
     <li>If using halo:
       <input class="spoilerbutton" type="button" value="Show" onclick="this.value=this.value=='Show'?'Hide':'Show';" />
       <div class="spoiler"><div>Apparently it is possible to force close the game while in a parachute hovering over a player base. 
