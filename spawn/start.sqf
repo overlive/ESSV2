@@ -11,7 +11,7 @@ if (isClass(configFile >> "CfgWeapons" >> "Chainsaw")) then {
 		_platform hideObject true;
 		_platform enableSimulation false;
 	};
-	waitUntil {!isNil "PVDZE_plr_LoginRecord"};
+	waitUntil {!isNil "dayzPlayerLogin2" and {count dayzPlayerLogin2 > 0}};
 	_isPZombie = player isKindOf "PZombie_VB";
 	_go = dayzPlayerLogin2 select 2;
 } else {
