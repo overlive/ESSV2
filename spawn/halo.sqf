@@ -6,6 +6,8 @@ _haloDrop = {
 	_oid = str(ceil(random 999999));
 	_plane = _haloType createVehicleLocal _pPos;
 	_plane engineOn true;
+	clearWeaponCargo _plane;
+	clearMagazineCargo _plane;
 	_plane setPosATL _pPos;
 	_plane setVariable ["ObjectID",_oid,true];
 	_plane setVariable ["ObjectUID",_oid,true];
